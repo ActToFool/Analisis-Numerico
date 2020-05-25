@@ -141,16 +141,16 @@ server <- function(input, output) {
         res <-  choose_method()
         
         df <- data.frame((res$x+1989), res$y, "experimental")
-        names(df)<- c("anio", "infectados", "tipo")
+        names(df)<- c("anio", "poblacion", "tipo")
         
         DataFiltered <- (Data %>% filter(Pais == input$pais))
         infectados <- choose_dataP()
         df2 <- data.frame((res$x+1989), infectados, "Exacto")
-        names(df2)<- c("anio", "infectados", "tipo")
+        names(df2)<- c("anio", "poblacion", "tipo")
         
         dfd <- rbind(df, df2)
         
-        p <- ggplot(dfd, aes(x = anio, y = infectados, colour = tipo)) 
+        p <- ggplot(dfd, aes(x = anio, y = poblacion, colour = tipo)) 
         p <- p +geom_point(size = 3) + facet_grid(tipo ~ .) + theme_light()
         p
     })
@@ -175,3 +175,8 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+#Bases de datos tomadas de:
+#https://datos.bancomundial.org/indicador/SP.POP.TOTL?end=2018&start=1960
+#https://ourworldindata.org/hiv-aids
+
